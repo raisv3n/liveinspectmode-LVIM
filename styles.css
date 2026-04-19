@@ -1,0 +1,79 @@
+/* WYSIWYG Page Editor - Overlay Styles */
+/* These styles are injected into pages when edit mode is active */
+
+body.wysiwyg-active {
+  cursor: default !important;
+}
+
+body.wysiwyg-active * {
+  pointer-events: auto !important;
+}
+
+/* Element hover outline - handled in content.js for dynamic z-index */
+
+.wysiwyg-hover {
+  outline: 2px solid #2196F3 !important;
+  outline-offset: -2px !important;
+  position: relative !important;
+  z-index: 2147483646 !important;
+}
+
+.wysiwyg-selected {
+  outline: 3px solid #FF9800 !important;
+  outline-offset: -3px !important;
+  position: relative !important;
+  z-index: 2147483647 !important;
+}
+
+.wysiwyg-content-editable {
+  cursor: text !important;
+}
+
+/* Ensure extension UI elements stay above page content */
+#wysiwyg-toolbar {
+  position: absolute;
+  z-index: 2147483647 !important;
+}
+
+/* Transition for smooth hover effects */
+.wysiwyg-hover,
+.wysiwyg-selected {
+  transition: outline 0.15s ease !important;
+}
+
+/* Selection highlight for text editing */
+.wysiwyg-content-editable:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent layout shift when adding outlines */
+.wysiwyg-hover,
+.wysiwyg-selected {
+  box-sizing: border-box !important;
+}
+
+/* Make sure iframes and other embedded content don't interfere */
+body.wysiwyg-active iframe {
+  pointer-events: none !important;
+  opacity: 0.7 !important;
+}
+
+body.wysiwyg-active canvas,
+body.wysiwyg-active video,
+body.wysiwyg-active audio {
+  pointer-events: none !important;
+}
+
+/* Allow interaction with form elements even in edit mode */
+body.wysiwyg-active input,
+body.wysiwyg-active textarea,
+body.wysiwyg-active select,
+body.wysiwyg-active button {
+  pointer-events: auto !important;
+}
+
+/* Ensure links remain interactive when not selected */
+body.wysiwyg-active a:not(.wysiwyg-selected):not(.wysiwyg-hover) {
+  pointer-events: auto !important;
+}
