@@ -2,7 +2,7 @@
 
 > ⚠️ **Beta** — This extension is in active development. Features may change and bugs may appear. Use on non-production pages.
 
-A Chrome Extension for visual web page inspection, editing, and reverse engineering. Toggle edit mode on any webpage, select elements, modify styles directly, and export your changes.
+A Chrome Extension for visual web page inspection, editing, and reverse engineering. Toggle edit mode on any webpage, select elements, and modify styles directly.
 
 
 
@@ -28,10 +28,6 @@ A Chrome Extension for visual web page inspection, editing, and reverse engineer
 - **Match Highlighting** — Cyan dashed outlines on all matches
 - **Scrollbar Markers** — Visual indicators showing match positions
 - **Prev/Next Navigation** — Cycle through matches with smooth scrolling
-
-### Export (Experimental)
-- **Export as HTML** — Download edited page with inline styles
-- **Export as JSON** — Extracts structured content (headings, paragraphs, images, links)
 
 ## 🚀 Installation
 
@@ -80,12 +76,6 @@ chrome://extensions/
 4. Use **‹ ›** buttons to navigate between matches
 5. Click scrollbar markers to jump to specific matches
 
-### Exporting
-
-1. Make your edits
-2. Click **Export as HTML** or **Export as JSON** in the popup
-3. File downloads automatically with timestamp
-
 ### Keyboard Shortcuts
 
 - **Shift + Click** — Select parent element instead of child
@@ -117,7 +107,6 @@ The extension uses a warm, aesthetic color scheme:
   - `getSelectorSummary()` — Builds CSS selectors filtering utility classes
   - `applyStylesToAll()` — Applies styles to matching elements
   - `findAllMatches()` — Discovers and highlights similar elements
-  - `exportHtml()` / `exportJson()` — Export functionality
 
 ### State Management
 The extension maintains internal state for:
@@ -126,13 +115,6 @@ The extension maintains internal state for:
 - Edited elements tracking
 - Font loading
 - Match results and navigation index
-
-## 📤 Export
-
-- **HTML** — Downloads a standalone `.html` file with full document structure (`<!DOCTYPE html>`, `<head>` with meta/styles, cleaned `<body>`). Preserves your inline style edits and Google Fonts.
-- **JSON** — Downloads a `.json` file with structured content extraction: headings, paragraphs, images, links, buttons, SVGs, plus page metadata (title, URL, export timestamp). Each element includes its tag, text, and computed styles (color, background, font size, weight, family).
-
-## ⚠️ Limitations
 
 ## 🤝 Contributing
 
@@ -154,4 +136,4 @@ MIT License - feel free to use and modify!
 
 ---
 
-Built with ❤️ for web designers, developers, and content creators who need to quickly inspect, edit, and extract web content.
+Built with ❤️ for web designers, developers, and content creators who need to quickly inspect and edit web content.

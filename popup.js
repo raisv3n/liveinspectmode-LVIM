@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const editModeToggle = document.getElementById('editModeToggle');
   const resetBtn = document.getElementById('resetBtn');
   const clearBtn = document.getElementById('clearBtn');
-  const exportHtmlBtn = document.getElementById('exportHtmlBtn');
-  const exportJsonBtn = document.getElementById('exportJsonBtn');
 
   loadEditModeState();
 
@@ -20,14 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     await sendMessageToContent({ action: 'clearAll' });
     editModeToggle.checked = false;
     await updateEditMode(false);
-  });
-
-  exportHtmlBtn.addEventListener('click', async () => {
-    await sendMessageToContent({ action: 'exportHtml' });
-  });
-
-  exportJsonBtn.addEventListener('click', async () => {
-    await sendMessageToContent({ action: 'exportJson' });
   });
 
   async function loadEditModeState() {
@@ -64,13 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (tab?.id) {
         const response = await chrome.tabs.sendMessage(tab.id, message);
-        if (response?.data) {
-          if (message.action === 'exportHtml') {
-            await downloadFile(response.data, 'edited-page.html', 'text/html');
-          } else if (message.action === 'exportJson') {
-            await downloadFile(JSON.stringify(response.data, null, 2), 'page-data.json', 'application/json');
-          }
-        }
         if (response?.message) {
           showNotification(response.message);
         }
@@ -79,19 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Error sending message:', error);
       showNotification('Error: Could not communicate with page');
     }
-  }
-
-  async function downloadFile(content, filename, mimeType) {
-    const blob = new Blob([content], { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showNotification(`Exported: ${filename}`);
   }
 
   function showNotification(message) {
