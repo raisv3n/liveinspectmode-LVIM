@@ -75,7 +75,7 @@
         <button class="toolbar-btn close-btn" id="closeToolbarBtn" title="Close">✕</button>
       </div>
     `;
-    toolbar.style.cssText = 'position:fixed;display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:#f0eee4;border:1px solid #c5b1a0;border-radius:8px;box-shadow:0 4px 20px rgba(83,80,64,0.18);z-index:2147483647;min-width:220px;top:0;left:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;';
+    toolbar.style.cssText = 'position:fixed;display:flex;flex-direction:column;gap:12px;padding:20px;background:#fff;border:1px solid #e0e0e0;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.08);z-index:2147483647;min-width:280px;top:0;left:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;';
     toolbar.setAttribute('data-wysiwyg', 'true');
     return toolbar;
   }
@@ -84,23 +84,21 @@
     const style = document.createElement('style');
     style.id = 'wysiwyg-styles';
     style.textContent = `
-      #wysiwyg-toolbar { color: #535040 !important; }
-      #wysiwyg-toolbar * { font-size: 11px !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
-      .toolbar-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-      .toolbar-divider { height: 1px; background: #c5b1a0; margin: 2px 0; }
-      .toolbar-label { display: flex; align-items: center; gap: 3px; color: #535040 !important; }
-      .toolbar-label input[type="color"] { width: 24px !important; height: 24px !important; border: 2px solid #c5b1a0 !important; border-radius: 4px !important; cursor: pointer; padding: 0; background: #f0eee4 !important; }
-      .toolbar-label input[type="number"] { width: 38px !important; padding: 3px 5px !important; border: 1px solid #c5b1a0 !important; border-radius: 4px !important; font-size: 11px !important; background: #fff !important; color: #535040 !important; }
-      .toolbar-label span { color: #535040 !important; font-size: 10px !important; font-weight: 600 !important; }
-      .toolbar-row select { padding: 3px 6px !important; border: 1px solid #c5b1a0 !important; border-radius: 4px !important; font-size: 10px !important; background: #fff !important; color: #535040 !important; cursor: pointer !important; }
-      #selectorDisplay { font-size: 10px !important; color: #535040 !important; word-break: break-all; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: rgba(197,177,160,0.15); padding: 2px 6px; border-radius: 3px; font-family: "SF Mono", Monaco, "Cascadia Code", monospace !important; letter-spacing: 0.3px; }
-      .toolbar-btn { padding: 4px 8px !important; border: 1px solid #c5b1a0 !important; border-radius: 4px !important; cursor: pointer !important; font-size: 10px !important; font-weight: 600 !important; background: #fff !important; color: #535040 !important; transition: all 0.15s ease !important; }
-      .toolbar-btn:hover { background: #f0eee4 !important; border-color: #535040 !important; }
-      .accent-btn { background: #535040 !important; color: #f0eee4 !important; border-color: #535040 !important; }
-      .accent-btn:hover { background: #6b6855 !important; }
-      .close-btn { background: transparent !important; color: #535040 !important; border-color: #c5b1a0 !important; }
-      .close-btn:hover { background: #535040 !important; color: #f0eee4 !important; }
-      #matchCounter { font-size: 10px !important; color: #535040 !important; font-weight: 600; min-width: 30px; text-align: center; }
+      #wysiwyg-toolbar { color: #333 !important; }
+      #wysiwyg-toolbar * { font-size: 12px !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
+      .toolbar-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .toolbar-divider { height: 1px; background: #eee; margin: 4px 0; }
+      .toolbar-label { display: flex; align-items: center; gap: 4px; color: #555 !important; font-size: 11px; }
+      .toolbar-label input[type="color"] { width: 28px !important; height: 28px !important; border: 1px solid #ddd !important; border-radius: 6px !important; cursor: pointer; padding: 0; background: #fff !important; }
+      .toolbar-label input[type="number"] { width: 44px !important; padding: 6px 8px !important; border: 1px solid #ddd !important; border-radius: 6px !important; font-size: 12px !important; background: #fff !important; color: #333 !important; }
+      .toolbar-label span { color: #888 !important; font-size: 11px !important; font-weight: 500 !important; }
+      .toolbar-row select { padding: 6px 8px !important; border: 1px solid #ddd !important; border-radius: 6px !important; font-size: 11px !important; background: #fff !important; color: #333 !important; cursor: pointer !important; }
+      #selectorDisplay { font-size: 11px !important; color: #555 !important; word-break: break-all; max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #f5f5f5; padding: 4px 8px; border-radius: 4px; font-family: "SF Mono", Monaco, "Cascadia Code", monospace !important; }
+.toolbar-btn { padding: 6px 12px !important; border: 1px solid #213F95 !important; border-radius: 6px !important; cursor: pointer !important; font-size: 11px !important; font-weight: 600 !important; background: #213F95 !important; color: #fff !important; transition: all 0.15s ease !important; }
+      .toolbar-btn:hover { background: #2a4db8 !important; border-color: #2a4db8 !important; }
+      .close-btn { background: #213F95 !important; color: #fff !important; border-color: #213F95 !important; }
+      .close-btn:hover { background: #2a4db8 !important; color: #fff !important; }
+      #matchCounter { font-size: 11px !important; color: #555 !important; font-weight: 600; min-width: 36px; text-align: center; }
       .wysiwyg-hover { outline: 2px solid #c5b1a0 !important; outline-offset: -2px !important; position: relative; z-index: 2147483646 !important; }
       .wysiwyg-selected { outline: 3px solid #535040 !important; outline-offset: -3px !important; position: relative; z-index: 2147483647 !important; }
       .wysiwyg-content-editable { cursor: text !important; }
