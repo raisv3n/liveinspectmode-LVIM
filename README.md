@@ -1,6 +1,6 @@
 # LiveInspectMode (LVIM)
 
-A powerful Chrome Extension for visual web page inspection, editing, and reverse engineering. Toggle edit mode on any webpage, select elements, modify styles directly, and export your changes.
+A Chrome Extension for visual web page inspection, editing, and reverse engineering. Toggle edit mode on any webpage, select elements, modify styles directly, and export your changes.
 
 ![Extension Screenshot](screenshot.png)
 
