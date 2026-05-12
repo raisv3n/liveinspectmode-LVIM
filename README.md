@@ -12,20 +12,20 @@ A Chrome Extension for visual web page inspection, editing, and reverse engineer
 - **Edit Mode Toggle** — Enable/disable page editing with one click
 - **Element Selection** — Hover to preview, click to select (Shift+Click for parent element)
 - **Visual Outlines** — Clear hover (tan) and selection (dark olive) indicators
-- **Inline Text Editing** — Click any text element to edit directly on the page
+- **Inline Text Editing** — Click any text element to edit directly on the page (contentEditable)
 
 ### Style Editing Toolbar
 - **Text Color** — Change font color with color picker
 - **Background Color** — Modify element backgrounds
 - **Font Size** — Adjust text size (8px - 200px)
 - **Font Family** — 11 fonts including system fonts (Arial, Georgia) and Google Fonts (Inter, Roboto, Poppins)
-- **Apply to All** — Apply current styles to all matching elements
-- **Reset** — Restore original styles per element or all changes
+- **Apply to All** — Apply current inline styles to all matching elements
+- **Reset** — Restore selected element to original state
 
 ### Find & Navigate
 - **Element Selector Display** — Shows CSS selector (e.g., `p.leading-relaxed`)
-- **Find All** — Discover all visually similar elements on the page
-- **Match Highlighting** — Cyan dashed outlines on all matches
+- **Find All** — Find all elements matching the same tag/class on the page
+- **Match Highlighting** — Dashed tan outlines on all matches
 - **Scrollbar Markers** — Visual indicators showing match positions
 - **Prev/Next Navigation** — Cycle through matches with smooth scrolling
 
@@ -60,19 +60,15 @@ chrome://extensions/
 2. Toggle **Edit Mode** ON
 3. Hover over elements to see the tan outline
 4. Click to select (dark olive outline appears)
-5. Use the floating toolbar to:
-   - Change colors
-   - Adjust font size
-   - Change font family
-   - Apply styles to all similar elements
+ 5. The toolbar appears in the top-right corner — change colors, font size, font family, or apply styles to all matching elements
 6. Click outside the element to deselect
 7. Toggle Edit Mode OFF when done
 
 ### Finding Similar Elements
 
 1. Select any element
-2. Click **Find** in the toolbar
-3. All matching elements get cyan dashed outlines
+ 2. Click **Find** in the toolbar
+ 3. All matching elements get dashed tan outlines
 4. Use **‹ ›** buttons to navigate between matches
 5. Click scrollbar markers to jump to specific matches
 
@@ -82,11 +78,11 @@ chrome://extensions/
 
 ## 🎨 Color Palette
 
-The extension uses a warm, aesthetic color scheme:
-
-- **Dark**: `#535040` (selection outline, accent buttons)
-- **Light**: `#f0eee4` (toolbar background)
-- **Accent**: `#c5b1a0` (hover outline, highlights)
+- **White**: `#ffffff` (toolbar background, inputs)
+- **Navy**: `#213F95` (all buttons, accent)
+- **Lighter Navy**: `#2a4db8` (button hover)
+- **Tan**: `#c5b1a0` (hover outline, match highlight)
+- **Dark Olive**: `#535040` (selection outline)
 
 ## 🛠️ Development
 
