@@ -29,9 +29,9 @@ A Chrome Extension for visual web page inspection, editing, and reverse engineer
 - **Scrollbar Markers** — Visual indicators showing match positions
 - **Prev/Next Navigation** — Cycle through matches with smooth scrolling
 
-### Export
-- **Export as HTML** — Download edited page with inline styles and Google Fonts
-- **Export as JSON** — Structured data extraction (headings, paragraphs, images, links, buttons)
+### Export (Experimental)
+- **Export as HTML** — Download edited page with inline styles
+- **Export as JSON** — Extracts structured content (headings, paragraphs, images, links)
 
 ## 🚀 Installation
 
@@ -129,45 +129,9 @@ The extension maintains internal state for:
 
 ## 📝 Export Formats
 
-### HTML Export
-Includes:
-- Cleaned DOM without extension UI
-- Inline styles preserved
-- Google Fonts links dynamically injected
-- Ready-to-use HTML file
-
-### JSON Export
-```json
-{
-  "elements": [
-    {
-      "tag": "h1",
-      "text": "Main Heading",
-      "styles": {
-        "color": "#535040",
-        "fontSize": "48px"
-      }
-    },
-    {
-      "tag": "p",
-      "text": "Paragraph text...",
-      "styles": { ... }
-    },
-    {
-      "tag": "img",
-      "src": "https://example.com/image.jpg",
-      "alt": "Description"
-    }
-  ]
-}
-```
+Coming soon.
 
 ## ⚠️ Limitations
-
-- Works on standard web pages (may have issues with heavily scripted SPAs)
-- Google Fonts load dynamically but require internet connection
-- Some CSS-in-JS styles may not be fully captured
-- Complex nested selectors are simplified to tag + first meaningful class
 
 ## 🤝 Contributing
 
