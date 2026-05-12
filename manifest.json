@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "WYSIWYG Page Editor",
+  "name": "LiveInspectMode (LVIM)",
   "version": "1.0.0",
-  "description": "Edit any webpage directly - toggle edit mode, select elements, modify text and styles, export as HTML or JSON",
+  "description": "Visually inspect, edit, and extract content from any webpage in real-time",
   "permissions": [
     "activeTab",
     "storage",
