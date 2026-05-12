@@ -658,35 +658,38 @@
   // ============================================
 
   function exportHtml() {
-    const clone = document.documentElement.cloneNode(true);
-    const toolbar = clone.querySelector('#wysiwyg-toolbar');
-    if (toolbar) toolbar.remove();
-    
-    const selectedElements = clone.querySelectorAll('.wysiwyg-selected, .wysiwyg-hover, .wysiwyg-content-editable, .wysiwyg-match');
-    selectedElements.forEach(el => {
-      el.classList.remove('wysiwyg-selected', 'wysiwyg-hover', 'wysiwyg-content-editable', 'wysiwyg-match');
-      if (el.isContentEditable) {
-        el.removeAttribute('contenteditable');
-      }
-    });
-    
-    const bodyContent = document.body.cloneNode(true);
-    bodyContent.querySelectorAll('#wysiwyg-toolbar, #wysiwyg-scroll-markers').forEach(el => el.remove());
-    bodyContent.querySelectorAll('.wysiwyg-selected, .wysiwyg-hover, .wysiwyg-content-editable, .wysiwyg-match').forEach(el => {
-      el.classList.remove('wysiwyg-selected', 'wysiwyg-hover', 'wysiwyg-content-editable', 'wysiwyg-match');
-    });
+    // Build a proper standalone HTML document
+    const docTitle = document.title || 'Exported Page';
 
-    let fontLinks = '';
+    // Cleaned body content
+    const bodyClone = document.body.cloneNode(true);
+    bodyClone.querySelectorAll('#wysiwyg-toolbar, #wysiwyg-scroll-markers, script').forEach(el => el.remove());
+    bodyClone.querySelectorAll('.wysiwyg-selected, .wysiwyg-hover, .wysiwyg-content-editable, .wysiwyg-match').forEach(el => {
+      el.classList.remove('wysiwyg-selected', 'wysiwyg-hover', 'wysiwyg-content-editable', 'wysiwyg-match');
+    });
+    bodyClone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+
+    // Collect head content (styles, meta tags)
+    let headContent = '';
+    const headEls = document.head.children;
+    for (let i = 0; i < headEls.length; i++) {
+      const tag = headEls[i].tagName.toLowerCase();
+      if (['meta', 'link', 'style', 'base'].includes(tag)) {
+        const clone = headEls[i].cloneNode(true);
+        // Skip extension styles
+        if (clone.id === 'wysiwyg-styles' || clone.id && clone.id.startsWith('gf-')) continue;
+        headContent += clone.outerHTML + '\n    ';
+      }
+    }
+
+    // Add Google Font links
     if (state.loadedFonts.size > 0) {
       state.loadedFonts.forEach(fontName => {
-        fontLinks += '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontName.replace(/\s+/g, '+') + '&display=swap">\n';
+        headContent += '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontName.replace(/\s+/g, '+') + '&display=swap">\n    ';
       });
     }
 
-    if (fontLinks) {
-      return '<!-- Google Fonts -->\n' + fontLinks + '\n' + bodyContent.innerHTML;
-    }
-    return bodyContent.innerHTML;
+    return '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + docTitle + '</title>\n  ' + headContent + '</head>\n<body>\n' + bodyClone.innerHTML + '\n</body>\n</html>';
   }
 
   function exportJson() {
@@ -714,7 +717,7 @@
     while (node = walker.nextNode()) {
       const tagName = node.tagName.toLowerCase();
       
-      if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'td', 'th', 'blockquote'].includes(tagName)) {
+      if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'td', 'th', 'blockquote', 'figcaption', 'cite'].includes(tagName)) {
         const text = node.textContent.trim();
         if (text && !processedTexts.has(text)) {
           processedTexts.add(text);
@@ -749,7 +752,15 @@
         }
       }
     }
-    return { elements };
+
+    return {
+      metadata: {
+        title: document.title || '',
+        url: window.location.href,
+        exportedAt: new Date().toISOString()
+      },
+      elements: elements
+    };
   }
 
   function extractStyles(element) {
@@ -768,8 +779,15 @@
       styles.fontSize = fontSize;
     }
     const fontWeight = computedStyle.fontWeight;
-    if (fontWeight && fontWeight !== '400') {
+    if (fontWeight && fontWeight !== '400' && fontWeight !== 'normal') {
       styles.fontWeight = fontWeight;
+    }
+    const fontFamily = computedStyle.fontFamily;
+    if (fontFamily && !fontFamily.includes('-apple-system') && !fontFamily.includes('sans-serif')) {
+      const cleaned = fontFamily.replace(/['"]/g, '').split(',')[0].trim();
+      if (cleaned && cleaned !== 'sans-serif' && cleaned !== 'serif' && cleaned !== 'monospace') {
+        styles.fontFamily = cleaned;
+      }
     }
     const textAlign = computedStyle.textAlign;
     if (textAlign && textAlign !== 'start' && textAlign !== 'left') {

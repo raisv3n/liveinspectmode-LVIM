@@ -127,9 +127,10 @@ The extension maintains internal state for:
 - Font loading
 - Match results and navigation index
 
-## 📝 Export Formats
+## 📤 Export
 
-Coming soon.
+- **HTML** — Downloads a standalone `.html` file with full document structure (`<!DOCTYPE html>`, `<head>` with meta/styles, cleaned `<body>`). Preserves your inline style edits and Google Fonts.
+- **JSON** — Downloads a `.json` file with structured content extraction: headings, paragraphs, images, links, buttons, SVGs, plus page metadata (title, URL, export timestamp). Each element includes its tag, text, and computed styles (color, background, font size, weight, family).
 
 ## ⚠️ Limitations
 
