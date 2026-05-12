@@ -600,24 +600,23 @@
 
   function resetElement(element) {
     const original = state.originalContent.get(element);
+    console.log('[WYSIWYG] resetElement called, has original:', !!original, 'tag:', element.tagName);
     if (original) {
+      console.log('[WYSIWYG] restoring html length:', original.html.length, 'styles:', original.styles);
       element.innerHTML = original.html;
       element.style.cssText = original.styles || '';
     }
   }
 
   function resetAllChanges() {
+    console.log('[WYSIWYG] resetAllChanges called, edited elements:', state.editedElements.size);
+    console.log('[WYSIWYG] original content entries:', state.originalContent.size);
     Array.from(state.editedElements).forEach(element => {
       resetElement(element);
     });
     state.editedElements.clear();
     state.originalContent.clear();
     deselectElement();
-  }
-
-  function clearAll() {
-    resetAllChanges();
-    disableEditMode();
   }
 
   // ============================================
@@ -668,10 +667,6 @@
       case 'resetChanges':
         resetAllChanges();
         sendResponse({ message: 'All changes reset' });
-        break;
-      case 'clearAll':
-        clearAll();
-        sendResponse({ message: 'All cleared' });
         break;
       default:
         sendResponse({ error: 'Unknown action' });

@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const editModeToggle = document.getElementById('editModeToggle');
   const resetBtn = document.getElementById('resetBtn');
-  const clearBtn = document.getElementById('clearBtn');
 
   loadEditModeState();
 
@@ -12,12 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   resetBtn.addEventListener('click', async () => {
     await sendMessageToContent({ action: 'resetChanges' });
-  });
-
-  clearBtn.addEventListener('click', async () => {
-    await sendMessageToContent({ action: 'clearAll' });
-    editModeToggle.checked = false;
-    await updateEditMode(false);
   });
 
   async function loadEditModeState() {
