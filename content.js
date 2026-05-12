@@ -600,23 +600,23 @@
 
   function resetElement(element) {
     const original = state.originalContent.get(element);
-    console.log('[WYSIWYG] resetElement called, has original:', !!original, 'tag:', element.tagName);
     if (original) {
-      console.log('[WYSIWYG] restoring html length:', original.html.length, 'styles:', original.styles);
       element.innerHTML = original.html;
-      element.style.cssText = original.styles || '';
+      element.removeAttribute('style');
     }
   }
 
   function resetAllChanges() {
-    console.log('[WYSIWYG] resetAllChanges called, edited elements:', state.editedElements.size);
-    console.log('[WYSIWYG] original content entries:', state.originalContent.size);
     Array.from(state.editedElements).forEach(element => {
       resetElement(element);
+      element.contentEditable = false;
+      element.classList.remove('wysiwyg-selected', 'wysiwyg-content-editable', 'wysiwyg-hover');
     });
     state.editedElements.clear();
     state.originalContent.clear();
-    deselectElement();
+    removeScrollMarkers();
+    state.selectedElement = null;
+    if (toolbar) toolbar.style.display = 'none';
   }
 
   // ============================================
