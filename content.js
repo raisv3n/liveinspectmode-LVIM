@@ -375,6 +375,8 @@
     resetElementBtn.addEventListener('click', () => {
       if (state.selectedElement) {
         resetElement(state.selectedElement);
+        state.editedElements.delete(state.selectedElement);
+        state.originalContent.delete(state.selectedElement);
       }
     });
     
@@ -601,12 +603,11 @@
     if (original) {
       element.innerHTML = original.html;
       element.style.cssText = original.styles || '';
-      state.editedElements.delete(element);
     }
   }
 
   function resetAllChanges() {
-    state.editedElements.forEach(element => {
+    Array.from(state.editedElements).forEach(element => {
       resetElement(element);
     });
     state.editedElements.clear();
